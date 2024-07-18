@@ -78,6 +78,7 @@ public class WebSecurityConfig {
 
         var usersDetails = new ArrayList<UserDetails>(users.size());
         for (var user : users) {
+            logger.info("Adding user: " + user.getUsername() + ". Is Admin: " + user.getAdmin());
             usersDetails.add(User.builder()
                     .username(user.getUsername())
                     .password(user.getPassword())
