@@ -6,6 +6,8 @@ import com.github.hkzorman.avakinitemdb.repositories.AvakinItemRepository;
 import com.github.hkzorman.avakinitemdb.repositories.ItemMatchupProposalRepository;
 import com.github.hkzorman.avakinitemdb.repositories.ItemMatchupRepository;
 import com.github.hkzorman.avakinitemdb.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,10 +21,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://avktrendify.github.io"})
 @RequestMapping("/proposals")
 public class ItemMatchupProposalController {
     private final AvakinItemRepository itemRepository;
+    private Logger logger = LoggerFactory.getLogger(ItemMatchupProposalController.class);
 
     private final ItemMatchupProposalRepository repository;
     private final ItemMatchupRepository itemMatchupRepository;
@@ -66,12 +69,14 @@ public class ItemMatchupProposalController {
                 var item = this.itemRepository.findByItemId(itemId).orElseThrow();
                 var users = matchup.getUsers();
                 if (users.contains(user)) {
+                    logger.info("User " + username + " has indicated they don't have item " + item.getTitle());
                     users.remove(user);
                     itemMatchupRepository.save(matchup);
                     user.getOwnedItems().remove(item);
                     userRepository.save(user);
                 }
                 else {
+                    logger.info("User " + username + " has indicated they have item " + item.getTitle());
                     users.add(user);
                     itemMatchupRepository.save(matchup);
                     user.getOwnedItems().add(item);
@@ -81,8 +86,6 @@ public class ItemMatchupProposalController {
             else {
                 throw new IllegalAccessException("User with name " + username + " is not a valid user");
             }
-
-
 
             proposal = this.repository.save(proposal);
             return proposal;
@@ -126,6 +129,8 @@ public class ItemMatchupProposalController {
 
                 // TODO: Delete unused matchups
 
+                logger.info("User " + username + " has updated proposal with ID " + existingProposal.getId());
+
                 return ResponseEntity.ok(repository.save(existingProposal));
             }
         }
@@ -145,7 +150,10 @@ public class ItemMatchupProposalController {
             }
             proposal.setMatchups(newMatchups.toArray(new ItemMatchup[0]));
 
-            return ResponseEntity.ok(repository.save(proposal));
+            var result = repository.save(proposal);
+
+            logger.info("User " + username + " has created a new proposal with ID " + result.getId());
+            return ResponseEntity.ok(result);
         }
 
         return null;

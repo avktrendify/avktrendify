@@ -69,6 +69,7 @@ public class AvakinItemController {
 
         if (result.isPresent()) {
             var page = result.get();
+            logger.info("Returning page " + page.getNumber() + " of " + page.getTotalPages() + " with " + page.getContent().size() + " items");
             return new PagedResponse<>(page.getNumber(), page.getTotalPages(), page.getContent());
         }
 

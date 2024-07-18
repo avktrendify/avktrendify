@@ -49,6 +49,7 @@ public class AvakinItemChangeController {
         var result = this.repository.findByIsActive(true, pageRequest);
         if (result.isPresent()) {
             var page = result.get();
+            logger.info("Retrieved " + page.getTotalPages() + " pages of active item change proposals.");
             return new PagedResponse<>(page.getNumber(), page.getTotalPages(), page.getContent());
         }
         else {
@@ -75,6 +76,8 @@ public class AvakinItemChangeController {
         changeProposal.setActive(true);
 
         var result = this.repository.save(changeProposal);
+
+        logger.info("User " + username + " has created item change proposal with ID " + result.getId() + " and title: " + result.getNewTitle());
         return ResponseEntity.ok(result);
     }
 
@@ -92,7 +95,7 @@ public class AvakinItemChangeController {
         var user = this.userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalAccessError("User " + username + " doesn't exists"));
 
-        logger.info("User '" + "' has " + (approved ? "approved" : "rejected") + " proposal '" + proposalId + "' to change item '" + item.getItemId() + "' title from '" + item.getTitleEs() + "' to '" + proposal.getNewTitle() + "'");
+        logger.info("User '" + username + "' has " + (approved ? "approved" : "rejected") + " proposal '" + proposalId + "' to change item '" + item.getItemId() + "' title from '" + item.getTitleEs() + "' to '" + proposal.getNewTitle() + "'");
 
         if (approved) {
             logger.info("Changing title of item " + item.getItemId() + " from '" + item.getTitleEs() + "' to '" + proposal.getNewTitle() + "'.");

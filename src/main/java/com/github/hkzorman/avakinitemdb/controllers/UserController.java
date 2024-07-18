@@ -2,7 +2,6 @@ package com.github.hkzorman.avakinitemdb.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.hkzorman.avakinitemdb.models.db.User;
 import com.github.hkzorman.avakinitemdb.repositories.UserRepository;
@@ -13,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://avktrendify.github.io"})
 @RequestMapping("/users")
 public class UserController {
 
@@ -39,7 +36,7 @@ public class UserController {
         this.authenticationManager = authenticationManager;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:4200", "https://avktrendify.github.io"})
     @GetMapping("/getUser")
     public ResponseEntity<AuthenticationResponse> getUserData() throws Exception {
 
@@ -58,6 +55,8 @@ public class UserController {
         var auth = Base64
                 .getEncoder()
                 .encode((username + ":" + password).getBytes());
+
+        logger.info("User " + username + " details retrieved.");
 
         return ResponseEntity.ok(new AuthenticationResponse(canCreate, new String(auth)));
     }
