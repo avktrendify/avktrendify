@@ -82,7 +82,7 @@ public class WebSecurityConfig {
             usersDetails.add(User.builder()
                     .username(user.getUsername())
                     .password(user.getPassword())
-                    .roles(user.getAdmin() != null && user.getAdmin() == true ? "admin" : "")
+                    .roles(user.getAdmin() != null && user.getAdmin() ? "admin" : "")
                     .build());
         }
 
