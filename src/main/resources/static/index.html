@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Kataline98</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link href="main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body class="has-navbar-fixed-top has-navbar-fixed-bottom">
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+
+<!-- Header -->
+<nav class="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <div class="navbar-item">
+            <button id="connect" class="button is-dark mr-2" type="submit">
+                <span class="icon">
+                    <i id="connectedIcon" class="material-symbols-rounded">comments_disabled</i>
+                </span>
+            </button>
+            <!-- Comment below for release -->
+            <a id="test" class="button is-dark mr-2" type="submit">
+                Crear
+            </a>
+            <a id="register" class="button is-dark mr-2" type="submit" href="/register.html">
+                Registrarse
+            </a>
+
+            <!-- End of testing code -->
+<!--            <span class="is-size-5 is-uppercase is-text-weight-medium">DetAlert</span>-->
+        </div>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <span class="icon">
+                    <i class="material-symbols-rounded">account_box</i>
+                </span>
+                <span id="username"></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Conversation panel -->
+<div id="application" class="block p-3">
+    <!-- Message area -->
+    <div class="columns is-mobile">
+        <div id="conversation" class="column">
+            <!-- Messages will be appended to this -->
+        </div>
+    </div>
+</div>
+
+<!-- List of proposals -->
+<div id="proposalList" class="block p-3">
+
+</div>
+
+<!-- Proposal editor -->
+<div id="proposalEditor" class="block p-3">
+
+    <article class="media">
+        <div class="media-content">
+            <!-- Search -->
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input id="itemTitle" class="input" type="text" placeholder="Buscar articulos">
+                </div>
+                <div class="control">
+                    <button id="itemSearchBtn" class="button is-info">
+                        <span class="icon">
+                            <i class="material-symbols-rounded">search</i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Append the items here -->
+            <div id="itemSearchResults">
+
+            </div>
+        </div>
+    </article>
+
+
+
+</div>
+
+<!-- Message entry -->
+<!--<nav class="navbar is-fixed-bottom add-top-border">-->
+<!--    <div class="navbar-item is-expanded">-->
+<!--        &lt;!&ndash; It is important to set the flex 1 0 auto below so that the field expands&ndash;&gt;-->
+<!--        &lt;!&ndash; We use form to support sending messages on hitting the `Enter` key &ndash;&gt;-->
+<!--        <form style="flex: 1 0 auto;">-->
+<!--            <div class="field is-grouped">-->
+<!--                <div class="control is-expanded">-->
+<!--                    <input type="text" id="name" class="input" placeholder="Your message">-->
+<!--                </div>-->
+
+<!--                <div class="control is-hidden-mobile">-->
+<!--                    <button id="send" class="button" type="submit">-->
+<!--                    <span class="icon">-->
+<!--                        <i class="material-symbols-rounded">send</i>-->
+<!--                    </span>-->
+<!--                        <span>Send</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="control is-hidden-tablet">-->
+<!--                    <button id="sendMobile" class="button" type="submit">-->
+<!--                    <span class="icon">-->
+<!--                        <i class="material-symbols-rounded">send</i>-->
+<!--                    </span>-->
+<!--                    </button>-->
+<!--                </div>-->
+
+<!--                <div class="control">-->
+<!--                    <button id="sendPriority" class="button is-danger" type="submit">-->
+<!--                    <span class="icon">-->
+<!--                        <span class="material-symbols-rounded">priority_high</span>-->
+<!--                    </span>-->
+<!--                    </button>-->
+<!--                </div>-->
+
+<!--                <div class="control">-->
+<!--                    <button id="sendAudio" class="button" type="submit">-->
+<!--                    <span class="icon">-->
+<!--                        <span class="material-symbols-rounded">auto_read_play</span>-->
+<!--                    </span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</nav>-->
+</body>
+</html>
